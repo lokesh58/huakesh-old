@@ -1,4 +1,4 @@
-import { Client, ClientOptions, Collection, Snowflake, User } from 'discord.js';
+import { Client, ClientEvents, ClientOptions, Collection, Snowflake, User } from 'discord.js';
 import { commands as allCommands } from '../commands';
 import { events as allEvents } from '../events';
 import { Command } from './commands';
@@ -110,7 +110,7 @@ export class HuakeshClient<Ready extends boolean = boolean> extends Client<Ready
       }
       this.commands.set(name, command);
       Logger.info(successfulLoadMessage(Entities.COMMAND, type, name));
-    });
+    }, this);
   }
 
   /**
@@ -154,7 +154,7 @@ export class HuakeshClient<Ready extends boolean = boolean> extends Client<Ready
    */
   private startListeningToEvents(eventTypeToEvents: EventTypeToEventsCollection, once: boolean): void {
     eventTypeToEvents.forEach((events, eventType) => {
-      (once ? this.once : this.on)(eventType, async (...args) => {
+      const cb = async (...args: ClientEvents[Events]) => {
         const results = await Promise.allSettled(events.map((event) => event.handler(...args)));
         results.forEach((res) => {
           if (res.status === 'rejected') {
@@ -163,8 +163,13 @@ export class HuakeshClient<Ready extends boolean = boolean> extends Client<Ready
             Logger.log(err.level, err);
           }
         });
-      });
+      };
+      if (once) {
+        this.once(eventType, cb);
+      } else {
+        this.on(eventType, cb);
+      }
       Logger.info(startedListeningToEventMessage(eventType, once));
-    });
+    }, this);
   }
 }
