@@ -1,4 +1,4 @@
-export * from './types';
+export * from './constants';
 
 export * from './CommandTypeMismatchError';
 export * from './EntityLoadError';

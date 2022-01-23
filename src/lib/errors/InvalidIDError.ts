@@ -1,7 +1,7 @@
 import { Snowflake } from 'discord.js';
 import { LogLevels } from '../logs';
+import { Structures } from './constants';
 import { HuakeshError } from './HuakeshError';
-import { Structures } from './types';
 
 /**
  * Error class for invalid id for structures.

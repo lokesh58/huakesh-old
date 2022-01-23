@@ -1,8 +1,21 @@
-import { LoadErrors } from './types';
+/**
+ * Enum of loading errors.
+ */
+export enum LoadErrors {
+  DUPLICATE = 'Duplicate',
+}
 
 /**
- * A mapping from loading errors to corresponding error messages.
+ * Enum of different structures.
  */
-export const loadErrorMessages: Record<LoadErrors, string> = {
-  [LoadErrors.DUPLICATE]: 'Entity names must be unique.',
-};
+export enum Structures {
+  GUILD = 'Guild',
+}
+
+/**
+ * Enum of permission types
+ */
+export enum PermissionTypes {
+  USER = 'User',
+  CLIENT = 'Client',
+}

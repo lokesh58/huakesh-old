@@ -1,7 +1,8 @@
 import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { CacheType, ContextMenuInteraction } from 'discord.js';
 import { Command, CommandDetails } from './Command';
-import { CommandTypes, InteractionHandler } from './types';
+import { CommandTypes } from './constants';
+import { InteractionHandler } from './types';
 
 /**
  * Interface for context menu command details

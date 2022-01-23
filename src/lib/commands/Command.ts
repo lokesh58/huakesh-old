@@ -1,9 +1,9 @@
 import { CacheType, Interaction, PermissionResolvable } from 'discord.js';
-import { InternalPermissions } from '.';
 import { PermissionError, PermissionTypes } from '../errors';
+import { CommandTypes, InternalPermissions } from './constants';
 import { ContextMenuCommand } from './ContextMenuCommand';
 import { SlashCommand } from './SlashCommand';
-import { CommandDataType, CommandInteractionHandlerType, CommandTypes } from './types';
+import { CommandDataType, CommandInteractionHandlerType } from './types';
 
 /**
  * Base interface for all command details

@@ -2,7 +2,7 @@ import { commaListsAnd, stripIndent } from 'common-tags';
 import { Guild, PermissionString, User } from 'discord.js';
 import { InternalPermissions } from '../commands';
 import { LogLevels } from '../logs';
-import { PermissionTypes } from './types';
+import { PermissionTypes } from './constants';
 import { UserDisplayableError } from './UserDisplayableError';
 
 export class PermissionError extends UserDisplayableError {

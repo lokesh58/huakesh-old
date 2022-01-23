@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { logLevelToConsoleStyle, resetConsoleStyle } from './constants';
-import { LogLevels } from './types';
+import { LogLevels, logLevelToConsoleStyle, resetConsoleStyle } from './constants';
 
 /**
  * Logger class for help with logging.
