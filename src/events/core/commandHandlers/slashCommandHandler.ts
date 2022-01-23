@@ -27,10 +27,19 @@ export const slashCommandHandler = new ClientEvent({
       const errEmbed = Utils.getErrorEmbed(
         error instanceof UserDisplayableError ? error.displayMessage : Constants.genericErrorMessage,
       );
-      await (interaction.deferred || interaction.replied ? interaction.followUp : interaction.reply)({
+      const errPayload = {
         embeds: [errEmbed],
         ephemeral: true,
-      }).catch((err) => Logger.error(Utils.processError(err)));
+      };
+      try {
+        if (interaction.deferred || interaction.replied) {
+          await interaction.followUp(errPayload);
+        } else {
+          await interaction.reply(errPayload);
+        }
+      } catch (err) {
+        Logger.error(Utils.processError(err));
+      }
       throw error;
     }
   },
