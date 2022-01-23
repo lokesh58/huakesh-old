@@ -6,13 +6,15 @@ import { SlashCommand } from '../../../lib';
 export const infoCommand = new SlashCommand({
   data: new SlashCommandBuilder().setName('info').setDescription('Get some info about the bot'),
   handler: async (interaction) => {
-    const msg = await interaction.reply({ content: 'Loading...', fetchReply: true });
+    const { client } = interaction;
+    const getInfoEmbed = (latency?: number) =>
+      new MessageEmbed().setTitle(`${client.user?.username}'s Info`).setDescription(stripIndent`
+      **Websocket Heartbeat:** ${client.ws.ping}ms
+      **Roundtrip latency:** ${typeof latency === 'undefined' ? 'pinging...' : `${latency}ms`}
+    `);
+    const msg = await interaction.reply({ embeds: [getInfoEmbed()], fetchReply: true });
     const latency =
       (msg instanceof Message ? msg.createdAt : new Date(msg.timestamp)).getTime() - interaction.createdTimestamp;
-    const embed = new MessageEmbed().setTitle('Info').setDescription(stripIndent`
-      **Websocket heartbeat:** ${interaction.client.ws.ping}ms
-      **Roundtrip latency:** ${latency}ms
-    `);
-    await interaction.editReply({ content: null, embeds: [embed] });
+    await interaction.editReply({ embeds: [getInfoEmbed(latency)] });
   },
 });
